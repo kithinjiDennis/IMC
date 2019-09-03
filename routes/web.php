@@ -58,6 +58,13 @@ Route::namespace('ADMIN')->group(function () {
      Route::post('health/store', 'HealthController@store');
      Route::post('health/delete-single-page', 'HealthController@deleteSinglePage');
      Route::post('health/delete-multiple-pages', 'HealthController@deleteMultiplePages');
+     // route for the news
+     Route::get('news/listing', 'NewsController@listing');
+     Route::get('news/create', 'NewsController@create');
+     Route::get('news/edit/{id}', 'NewsController@editPage');
+     Route::post('news/store', 'NewsController@store');
+     Route::post('news/delete-single-page', 'NewsController@deleteSinglePage');
+     Route::post('news/delete-multiple-pages', 'NewsController@deleteMultiplePages');
 
     /*User Module routes*/
     Route::get('users/create', 'UserController@create');
