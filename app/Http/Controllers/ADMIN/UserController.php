@@ -19,6 +19,7 @@ use App\Http\Traits\UserTrait;
 use Session;
 use DB;
 use App\Setting;
+use App\Page;
 class UserController extends Controller implements UserInterface
 {
     use CommonTrait, UserTrait;
@@ -38,8 +39,8 @@ class UserController extends Controller implements UserInterface
 
     public function dashboard()
     {
-
-      return view('users.dashboard');
+$allpages= Page::get();
+      return view('users.dashboard')->with('allpages',$allpages)->with('pageid','');
 
     }
 
