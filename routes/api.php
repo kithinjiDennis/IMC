@@ -13,18 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::namespace('ADMIN')->group(function () { 
+Route::namespace('ADMIN')->group(function () {
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
     Route::post('forgotPassword', 'UserController@forgotPassword');
-    Route::post('resetPassword', 'UserController@resetPassword');      
+    Route::post('resetPassword', 'UserController@resetPassword');
 });
 
-Route::middleware('auth:api')->group(function () { 
-    Route::namespace('ADMIN')->group(function () { 
+Route::middleware('auth:api')->group(function () {
+    Route::namespace('ADMIN')->group(function () {
        Route::post('changePassword', 'UserController@changePassword');
-       Route::post('logout', 'UserController@logout'); 
+       Route::post('logout', 'UserController@logout');
+      
     });
 });
-

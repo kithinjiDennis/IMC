@@ -27,7 +27,7 @@ class HomeController extends Controller
 
 
     /* common function to get header footer values */
-    
+
     public function getHeaderFooter() {
 
         $getHeaderMenus = Menu:: select('id', 'name_en', 'name_ar', 'menu_type_id', 'page_id', 'order')
@@ -54,21 +54,22 @@ class HomeController extends Controller
         return $data;
 
     }
-     
+
     public function index($lang = null)
     {
-       
+
         $getHeaderFooter = $this->getHeaderFooter();
         $getHeaderMenus =  $getHeaderFooter['header'];
         $getFooterMenus = $getHeaderFooter['footer'];
-    
+
         $lang = $lang;
-        return view('home', compact('getHeaderMenus', 'getFooterMenus', 'lang'));
+        //  i have commente dthsi because its redirection to home page return view('home', compact('getHeaderMenus', 'getFooterMenus', 'lang'));
+        return redirect('/login');
     }
 
     /*get page details using slug*/
     public function pages($slug, $lang = null) {
-       
+
         $getPageDetail = Page::where('slug', $slug)->first();
 
         $getHeaderFooter = $this->getHeaderFooter();
@@ -87,8 +88,8 @@ class HomeController extends Controller
             $meta_tags['meta_desc'] = $getPageDetail['meta_desc_en'];
             $meta_tags['meta_keywords'] = $getPageDetail['meta_keyword_en'];
 
-        }       
-    
+        }
+
         $lang = $lang;
         return view('page', compact('getHeaderMenus', 'getFooterMenus', 'lang', 'getPageDetail', 'meta_tags'));
     }

@@ -7,15 +7,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use DB;
+use App\Setting;
+
 class Helpers
 {
     /*
-    Method : upload images 
+    Method : upload images
     parameters : token in headers
     Created by : sarabjit singh
     purpose :  upload images
     */
+ function getlogo(){
+   $settingdat=Setting::where('id',1)->first();
+   if(!empty($settingdat)){
+      $logo= url('/')."/images/".$settingdat['icon'];
+   }else{
+     $logo= url('/')."/images/logo/logo.png";
+   }
+   return  $logo;
 
+ }
     function upload_image($file,$path,$old_image) {
         //dd($file);
     $oldimage = $path.$old_image;
@@ -53,7 +64,7 @@ class Helpers
       // To get the public path of the server.
    public static function publicpath($path = null)
    {
-       
+
        return url('/');
    // return rtrim(basePath('public/' . $path), '/');
    }

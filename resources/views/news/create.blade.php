@@ -98,7 +98,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-12">
 
                       <div class="custom-file">
-                        <input  accept="image/*" type="file" class="custom-file-input" id="iconFile"  name="icon" value="<?php if(!empty($editmenu->icon)){ ?>{{$editmenu->icon}}<?php } ?>" required>
+                        <input  accept="image/*" type="file" class="custom-file-input" id="iconFile"  name="icon" value="<?php if(!empty($editmenu->icon)){ ?>{{$editmenu->icon}}<?php } ?>">
                         <label class="custom-file-label LabeliconFile" for="iconFile">Choose image</label>
                       </div>
                       <div class="col-md-2" style="text-align: center;margin-top: 5px;">

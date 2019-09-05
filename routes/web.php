@@ -16,7 +16,6 @@
 //~ });
 
 Auth::routes();
-
 Route::get('/{lang?}', 'HomeController@index')->name('home');
 Route::get('/page/{slug}/{lang?}', 'HomeController@pages');
 //Route::get('/home', 'HomeController@index')->name('home');
@@ -33,7 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::namespace('ADMIN')->prefix('admin')->group(function () {
 
         Route::get('dashboard', 'UserController@dashboard');
-
         Route::get('topmenu/list/{id?}', 'ComponentController@topmenu_list');
         Route::post('topmenu/create', 'ComponentController@topmenu_create');
         Route::post('topmenu/delete', 'ComponentController@topmenu_delete');
@@ -49,8 +47,51 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('mainmenu/delete', 'ComponentController@mainmenu_delete');
         Route::post('mainmenu/update-menu-order', 'ComponentController@updateMainmenuOrder');
 
+         // Main footer
+
+         Route::get('mainfooter/list/{id?}/{type?}/{submenuid?}', 'ComponentController@mainfooter_list');
+         Route::post('mainfooter/create', 'ComponentController@mainfooter_create');
+         Route::post('mainfooter/delete', 'ComponentController@mainfooter_delete');
+         Route::post('mainfooter/update-footer-order', 'ComponentController@updateFooterOrder');
+
+
+
+
+         Route::get('footer1/list/{id?}/{type?}/{submenuid?}', 'ComponentController@footer1_list');
+         Route::post('footer1/create', 'ComponentController@footer1_create');
+         Route::post('footer1/delete', 'ComponentController@footer1_delete');
+         Route::post('footer1/update-footer1-order', 'ComponentController@updateFooter1Order');
+
+
+         Route::get('footer2/list/{id?}', 'ComponentController@footer2_list');
+         Route::post('footer2/create', 'ComponentController@footer2_create');
+
+
     });
 Route::namespace('ADMIN')->group(function () {
+  // enable or disable the sections
+
+  Route::get('sections/list', 'SettingController@section_list');
+  Route::post('sections/updatemultiplee', 'SettingController@updatemultiple');
+  Route::post('sections/disablemultiple', 'SettingController@disablemultiple');
+  Route::post('sections/updatesingle', 'SettingController@updatesingle');
+
+
+    // Chnage logo
+
+        Route::get('settings/logo/{id?}', 'SettingController@logo_list');
+        Route::post('settings/logoupdate', 'SettingController@logoupdate');
+       // Follow us
+       Route::get('follow/list/{id?}', 'SettingController@follow_list');
+       Route::post('follow/create', 'SettingController@follow_create');
+       // Contact us
+       Route::get('contact/list/{id}', 'SettingController@contact_list');
+       Route::post('contact/create', 'SettingController@contact_create');
+       // news heading update
+
+       Route::get('heading/list', 'NewsController@heading_list');
+       Route::post('heading/create', 'NewsController@heading_create');
+
  // this is for health tips
      Route::get('health/listing', 'HealthController@listing');
      Route::get('health/create', 'HealthController@create');
@@ -65,6 +106,23 @@ Route::namespace('ADMIN')->group(function () {
      Route::post('news/store', 'NewsController@store');
      Route::post('news/delete-single-page', 'NewsController@deleteSinglePage');
      Route::post('news/delete-multiple-pages', 'NewsController@deleteMultiplePages');
+
+     // route for the awards
+     Route::get('awards/listing', 'AwardController@listing');
+     Route::get('awards/create', 'AwardController@create');
+     Route::get('awards/edit/{id}', 'AwardController@editPage');
+     Route::post('awards/store', 'AwardController@store');
+     Route::post('awards/delete-single-page', 'AwardController@deleteSinglePage');
+     Route::post('awards/delete-multiple-pages', 'AwardController@deleteMultiplePages');
+     // affiliates
+
+     Route::get('affiliates/listing', 'AffiliateController@listing');
+     Route::get('affiliates/create', 'AffiliateController@create');
+     Route::get('affiliates/edit/{id}', 'AffiliateController@editPage');
+     Route::post('affiliates/store', 'AffiliateController@store');
+     Route::post('affiliates/delete-single-page', 'AffiliateController@deleteSinglePage');
+     Route::post('affiliates/delete-multiple-pages', 'AffiliateController@deleteMultiplePages');
+
 
     /*User Module routes*/
     Route::get('users/create', 'UserController@create');
@@ -81,7 +139,7 @@ Route::namespace('ADMIN')->group(function () {
 
     Route::get('users/change-password', 'UserController@ChangePassword');
     Route::post('users/change-password-submit', 'UserController@ChangePasswordSubmit');
-
+     Route::post('users/lg', 'UserController@logout');
      /*end user Module routes*/
 
     /*Pages Module routes*/

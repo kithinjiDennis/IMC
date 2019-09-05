@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 7
 Author: KeenThemes
 Website: http://www.keenthemes.com/
@@ -83,7 +83,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="{{ asset('assets/css/demo1/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 
 		<!--end::Layout Skins -->
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+		<!-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> -->
+		<link rel="shortcut icon" href="{{ url('/images/logo.png') }}" />
 
 		<style>
 		.pageloader {
@@ -110,15 +111,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<div class="pageloader"></div>
 
-		@if (!Auth::user())	
+		@if (!Auth::user())
 		<link href="{{ asset('assets/css/demo1/pages/general/login/login-1.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" type="text/css" />
 		@endif
 
-		@if (Auth::user())	
+		@if (Auth::user())
 		<link href="{{ asset('assets/css/demo1/pages/general/wizard/wizard-4.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" type="text/css" />
-		@endif	
+		@endif
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<!-- begin:: Header Mobile -->
 		@if (Auth::user())
@@ -137,9 +138,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 
 		<!-- end:: Header Mobile -->
-		
+
 		<div class="kt-grid kt-grid--hor kt-grid--root">
-		
+
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 
 				<!-- begin:: Aside -->
@@ -154,21 +155,21 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						<!-- begin:: Content -->
 						@yield('content')
-						
+
 						@yield('script')
 						<!-- end:: Content -->
 					</div>
 
 					<!-- begin:: Footer -->
-					
+
 					@include('layouts.footer')
-					
-					
+
+
 					<!-- end:: Footer -->
 				</div>
 			</div>
 		</div>
-		
+
 		@else
 		@yield('content')
 		@endif
@@ -1079,7 +1080,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--
 		<script src="{{ asset('assets/js/demo1/pages/custom/apps/user/list-datatable.js') }}" type="text/javascript"></script>
 -->
-		
+
 		<!--end::Page Scripts -->
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

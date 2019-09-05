@@ -14,7 +14,7 @@
 			<!--begin::Content-->
 			<div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper">
 
-				
+
 
 				<!--begin::Body-->
 				<div class="kt-login__body">

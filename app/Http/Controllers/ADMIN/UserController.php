@@ -18,16 +18,21 @@ use App\Http\Traits\CommonTrait;
 use App\Http\Traits\UserTrait;
 use Session;
 use DB;
-
+use App\Setting;
 class UserController extends Controller implements UserInterface
 {
     use CommonTrait, UserTrait;
 
     /*
-    This controller includes user  create, store, listing, deleteSingleUser, changeStatus,  editUser, SaveEditUser, deleteMultiple, 
+    This controller includes user  create, store, listing, deleteSingleUser, changeStatus,  editUser, SaveEditUser, deleteMultiple,
   updateMultiUserStatus, ChangePassword, ChangePasswordSubmit, forgotpassword, resetPassword, resetPasswordSubmit functions
-    
+
     */
+
+  public function logout(Request $request) {
+          return redirect('/login');
+
+  }
 
     /*create function create user in website*/
 
@@ -63,7 +68,7 @@ class UserController extends Controller implements UserInterface
             'email.unique' => 'This email is already registered with us.'
         ]);
 
-        $randomkey = $this->getVerificationCode();    
+        $randomkey = $this->getVerificationCode();
         $user_password = substr(time().$randomkey, 0, 15);
 
         DB::beginTransaction();
@@ -84,7 +89,7 @@ class UserController extends Controller implements UserInterface
         if($status) {
 
             try {
-                
+
                 $data['name'] = $request->get('name');
                 $data['email'] = $request->get('email');
                 $data['password'] = $user_password;
@@ -100,22 +105,22 @@ class UserController extends Controller implements UserInterface
 
                 DB::commit();
 
-                Session::flash('message', 'User created successfully'); 
-                Session::flash('alert-class', 'alert-success'); 
-              
+                Session::flash('message', 'User created successfully');
+                Session::flash('alert-class', 'alert-success');
+
               } catch (\Exception $e) {
 
-                  DB::rollback(); 
-                  
-                  Session::flash('message', $e->getMessage()); 
-                  Session::flash('alert-class', 'alert-danger'); 
+                  DB::rollback();
+
+                  Session::flash('message', $e->getMessage());
+                  Session::flash('alert-class', 'alert-danger');
               }
 
 
-           
+
         } else {
-            Session::flash('message', 'Unable to create user!'); 
-            Session::flash('alert-class', 'alert-danger'); 
+            Session::flash('message', 'Unable to create user!');
+            Session::flash('alert-class', 'alert-danger');
         }
         return redirect('/users/listing');
 
@@ -123,41 +128,41 @@ class UserController extends Controller implements UserInterface
 
     /* User listing can be view by this function */
     public function listing(Request $request)
-    {         
-        
+    {
+
         $per_page = (isset($request->recordvalue) ? $request->recordvalue : Config::get('variable.page_per_record')); //Config::get('variable.page_per_record');
         session(['sort_by' => 'asc']); // set default sorting
         $users = User::select('id', 'name', 'email', 'status', 'created_at');
-        
+
         if(isset($request->q)) { // search by name and email
 
             $users = $users->where(function($query) use($request) {
                $query->where('name','LIKE','%'.$request->q."%");
                $query->orWhere('email','LIKE','%'.$request->q."%");
-            });            
+            });
         }
 
         if(isset($request->sort_by)) {
 
             if($request->key == 'user') { // sort by user
-                $users = $users->orderBy('name', $request->sort_by); 
+                $users = $users->orderBy('name', $request->sort_by);
             }
 
             if($request->key == 'email') { // sort by email
-                $users = $users->orderBy('email', $request->sort_by); 
+                $users = $users->orderBy('email', $request->sort_by);
             }
 
             if($request->key == 'date') { // sort by date
-                $users = $users->orderBy('created_at', $request->sort_by); 
+                $users = $users->orderBy('created_at', $request->sort_by);
             }
 
             if($request->key == 'status') { // sort by status
-                $users = $users->orderBy('status', $request->sort_by); 
+                $users = $users->orderBy('status', $request->sort_by);
             }
 
         } else {
             $users = $users->orderBy('id', 'desc');
-            
+
         }
 
         $users = $users->where('role_id', Role::where('name', 'sub_admin')
@@ -171,13 +176,13 @@ class UserController extends Controller implements UserInterface
            session(['q' => $request->q]);
         } else {
            session()->forget('q');
-        }       
+        }
 
         // append sort_by params
         if(isset($request->sort_by)) {
             $users = $users->appends(['key' => $request->key, 'sort_by' => $request->sort_by]);
             session(['key' => $request->key, 'sort_by' =>( $request->sort_by == 'asc') ? 'desc' : 'asc']);
-        } 
+        }
 
          // append recordvalue params
          if(isset($request->recordvalue)) {
@@ -196,22 +201,22 @@ class UserController extends Controller implements UserInterface
     {
         $user = \App\User::find($request->id);
         $status = $user->delete();
-        
+
         if($status) {
 			$message 		= "User deleted successfully";
             $returnStatus 	= 1;
-            
+
         } else {
 			$message 		= "Unable to delete this user";
 			$returnStatus 	= 0;
         }
-        return json_encode(array('status' => $returnStatus, 'message' => $message));        
+        return json_encode(array('status' => $returnStatus, 'message' => $message));
     }
 
     /* Update user status from this function */
     public function changeStatus(Request $request)
     {
-        
+
         $result = User::where('id', $request->id)->update(['status' => $request->status ]);//$user->save();
 
         if($request->status ==  1) {
@@ -222,7 +227,7 @@ class UserController extends Controller implements UserInterface
 
         }
 
-        if($result) {            
+        if($result) {
 			$returnStatus 	= 1;
         } else {
 			$returnStatus 	= 0;
@@ -243,39 +248,39 @@ class UserController extends Controller implements UserInterface
         $result = User::where('id', $request->id)->update(['name' => $request->name ]);
 
         if($result) {
-            Session::flash('message', 'User updated successfully'); 
-            Session::flash('alert-class', 'alert-success'); 
+            Session::flash('message', 'User updated successfully');
+            Session::flash('alert-class', 'alert-success');
 
         } else {
-            Session::flash('message', 'Unable to update user!'); 
-            Session::flash('alert-class', 'alert-danger'); 
-            
+            Session::flash('message', 'Unable to update user!');
+            Session::flash('alert-class', 'alert-danger');
+
         }
         return redirect('/users/listing');
     }
-    
+
     /*delete multiple users*/
 
     public function deleteMultiple(Request $request) {
-		
+
         $result = User::whereIn('id', $request->ids)->delete();
-        
+
         if($result) {
 			$message 		= "User(s) deleted successfully";
             $returnStatus 	= 1;
-            
+
         } else {
 			$message 		= "Unable to delete user(s)";
 			$returnStatus 	= 0;
         }
-        return json_encode(array('status' => $returnStatus, 'message' => $message)); 
+        return json_encode(array('status' => $returnStatus, 'message' => $message));
     }
-    
+
     /*update multi users status*/
     public function updateMultiUserStatus(Request $request) {
 
         $result = User::whereIn('id', $request->ids)->update(['status' => $request->status]);
-        
+
         if($result) {
 
             if($request->status == 1) {
@@ -283,11 +288,11 @@ class UserController extends Controller implements UserInterface
             } else {
                 $message 		= "User(s) blocked successfully";
             }
-			
+
             $returnStatus 	= 1;
-            
+
         } else {
-            
+
             if($request->status == 1) {
                 $message 		= " Unable to activate user(s)";
             } else {
@@ -295,7 +300,7 @@ class UserController extends Controller implements UserInterface
             }
 			$returnStatus 	= 0;
         }
-        return json_encode(array('status' => $returnStatus, 'message' => $message)); 
+        return json_encode(array('status' => $returnStatus, 'message' => $message));
     }
 
     /*redirect to change password section*/
@@ -308,7 +313,7 @@ class UserController extends Controller implements UserInterface
 
 
     /*change password funtion*/
-    
+
     public function ChangePasswordSubmit(Request $request) {
 
         $this->validate($request,[
@@ -325,24 +330,24 @@ class UserController extends Controller implements UserInterface
             $user = User::where('id', Auth::id())->update(['password' => Hash::make($request->password)]);
 
             if($user) {
-    
-                Session::flash('message', 'Password change successfully!'); 
-                Session::flash('alert-class', 'alert-success'); 
-    
+
+                Session::flash('message', 'Password change successfully!');
+                Session::flash('alert-class', 'alert-success');
+
             } else {
-                Session::flash('message', 'Unable to change password!'); 
-                Session::flash('alert-class', 'alert-danger'); 
+                Session::flash('message', 'Unable to change password!');
+                Session::flash('alert-class', 'alert-danger');
             }
             return redirect('/users/listing');
-            
+
         } else {
 
-            Session::flash('message', 'Incorrect old password!'); 
-            Session::flash('alert-class', 'alert-danger'); 
+            Session::flash('message', 'Incorrect old password!');
+            Session::flash('alert-class', 'alert-danger');
 
             return redirect('/users/change-password');
-        }      
-        
+        }
+
 
     }
 
@@ -350,7 +355,7 @@ class UserController extends Controller implements UserInterface
 
     public function forgotpassword(Request $request) {
 
-        $randomkey = $this->getVerificationCode();    
+        $randomkey = $this->getVerificationCode();
         $forgot_password_token 	 = substr(time().$randomkey, 0, 15);
 
         $result = User::where('email', $request->email)->update(['forgot_password_token' => $forgot_password_token, 'updated_at' => time()]);
@@ -362,7 +367,7 @@ class UserController extends Controller implements UserInterface
                 $data['email'] = $request->get('email');
                 $data['forgot_password_token'] = $forgot_password_token;
                 $data['admin'] = Config::get('variable.ADMIN_EMAIL');
-                $data['server_url'] = Config::get('variable.SERVER_URL');
+                $data['server_url'] =url('/');
 
                 \Mail::send('emails.users.forgot_password', ['data' => $data],
                 function ($message) use ($data)
@@ -372,18 +377,18 @@ class UserController extends Controller implements UserInterface
                         ->to( $data['email'] )->subject('Reset password');
                 });
 
-                Session::flash('message', 'An email has been sent to you in your email id! Please check'); 
-                Session::flash('alert-class', 'alert-success'); 
-              
+                Session::flash('message', 'An email has been sent to you in your email id! Please check');
+                Session::flash('alert-class', 'alert-success');
+
               } catch (\Exception $e) {
-                  
-                  Session::flash('message', $e->getMessage()); 
-                  Session::flash('alert-class', 'alert-danger'); 
+
+                  Session::flash('message', $e->getMessage());
+                  Session::flash('alert-class', 'alert-danger');
               }
-           
+
         } else {
-            Session::flash('message', 'Unable to send email!'); 
-            Session::flash('alert-class', 'alert-danger'); 
+            Session::flash('message', 'Unable to send email!');
+            Session::flash('alert-class', 'alert-danger');
         }
 
         return redirect('/login');
@@ -393,11 +398,11 @@ class UserController extends Controller implements UserInterface
     public function resetPassword($token) {
 
         $user = User::select('id', 'forgot_password_token', 'updated_at')->where('forgot_password_token', $token)->first();
-        
+
         if($user) {
 
             $add30 = strtotime("+10 minutes", $user->updated_at); // link will expire after 30 minute
-            $current_time = time(); 
+            $current_time = time();
 
             if($current_time <  $add30) {
 
@@ -406,21 +411,21 @@ class UserController extends Controller implements UserInterface
 
             } else {
 
-                Session::flash('message', 'Token expire!'); 
-                Session::flash('alert-class', 'alert-danger'); 
+                Session::flash('message', 'Token expire!');
+                Session::flash('alert-class', 'alert-danger');
 
                 return redirect('/login');
             }
-            
-          
+
+
           } else {
-              
-              Session::flash('message', 'Token expire!'); 
-              Session::flash('alert-class', 'alert-danger'); 
-              
+
+              Session::flash('message', 'Token expire!');
+              Session::flash('alert-class', 'alert-danger');
+
               return redirect('/login');
         }
-    } 
+    }
 
     /*reset password submit function*/
 
@@ -436,32 +441,32 @@ class UserController extends Controller implements UserInterface
 
         $user = User::select('id', 'email', 'forgot_password_token', 'updated_at')->where('email', $request->email)->where('forgot_password_token', $request->token)->first();
 
-        if($user) { 
+        if($user) {
 
             $result = User::where('email', $request->email)->update(['forgot_password_token' => '', 'password' => Hash::make($request->password)]);
-            
+
             if($result) {
 
-                Session::flash('message', 'Password has been reset successfully'); 
-                Session::flash('alert-class', 'alert-success'); 
-            
+                Session::flash('message', 'Password has been reset successfully');
+                Session::flash('alert-class', 'alert-success');
+
             } else {
-                
-                Session::flash('message', 'Unable to reset password'); 
-                Session::flash('alert-class', 'alert-danger'); 
+
+                Session::flash('message', 'Unable to reset password');
+                Session::flash('alert-class', 'alert-danger');
             }
 
             return redirect('/login');
 
         } else {
 
-            Session::flash('message', 'To reset password please enter same email id for which you have requested to reset password!'); 
-            Session::flash('alert-class', 'alert-danger'); 
+            Session::flash('message', 'To reset password please enter same email id for which you have requested to reset password!');
+            Session::flash('alert-class', 'alert-danger');
 
             return redirect('/users/reset-password/'.$request->token);
 
-        }        
+        }
 
     }
-    
+
 }

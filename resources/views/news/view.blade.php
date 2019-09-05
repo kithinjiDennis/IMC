@@ -13,7 +13,7 @@
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
 				{{$pages->total()}} Total</span>
-                <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/news/listing')}}" method="GET" role="search">
+                <!-- <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/news/listing')}}" method="GET" role="search">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
 						<input type="text" class="form-control" placeholder="Search..." id="generalSearch" name="q" value="{{session()->get( 'q' )}}">
 						<span class="kt-input-icon__icon kt-input-icon__icon--right">
@@ -25,12 +25,10 @@
 										<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
 									</g>
 								</svg>
-
-								<!--<i class="flaticon2-search-1"></i>-->
 							</span>
 						</span>
 					</div>
-                </form>
+                </form> -->
             </div>
             <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
                 <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>

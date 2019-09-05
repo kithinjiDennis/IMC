@@ -3,7 +3,14 @@
 @section('title', 'Main Menu')
 
 @section('content')
+<style>
+.invalid-feed {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #fd397a; }
 
+</style>
 <div class="kt-subheader   kt-grid__item" id="kt_subheader">
         <div class="kt-subheader__main">
             <h3 class="kt-subheader__title">
@@ -11,13 +18,13 @@
 			<?php if($submenu==1){
 				echo ' - Sub Menu';
 			} ?>
-                
+
             </h3>
             <span class="kt-subheader__separator kt-subheader__separator--v"></span>
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
 				{{$menus->total()}} Total</span>
-                <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/mainmenu/list')}}" method="GET" role="search">
+                <!-- <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/mainmenu/list')}}" method="GET" role="search">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
 						<input type="text" class="form-control" placeholder="Search..." id="generalSearch" name="q" value="{{session()->get( 'q' )}}">
 						<span class="kt-input-icon__icon kt-input-icon__icon--right">
@@ -29,17 +36,15 @@
 										<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
 									</g>
 								</svg>
-
-								<!--<i class="flaticon2-search-1"></i>-->
 							</span>
 						</span>
 					</div>
-                </form>
+                </form> -->
             </div>
             <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
                 <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>
                 <div class="btn-toolbar kt-margin-l-20">
-                                       
+
                     <button class="btn btn-label-danger btn-bold btn-sm btn-icon-h" id="kt_subheader_group_actions_delete_all">
                         Delete All
                     </button>
@@ -51,10 +56,10 @@
 			</a>
 			<?php if(!empty($editmenu->id) && $submenu==0){ ?>
             <a href="{{ url('admin/mainmenu/list') }}" class="btn btn-label-brand btn-bold">
-				Add Menu </a>          
+				Add Menu </a>
 				<?php  }elseif(!empty($editmenu->id) && $submenu==1){ ?>
 					<a href="<?php echo url('admin/mainmenu/list/'.$parentId.'/submenu'); ?>" class="btn btn-label-brand btn-bold">
-						Add Menu </a>          
+						Add Menu </a>
 						<?php  }
 				?>
         </div>
@@ -73,38 +78,39 @@
             <table class="kt-datatable__table" style="display: block;">
                <thead class="kt-datatable__head">
 			   <tr class="kt-datatable__row" style="left: 0px;">
-				
-				<th data-field="MenuTitleEn" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:{{$width}}%;padding-left: 0;">
+
+				<th data-field="MenuTitleEn" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:{{$width}}%;padding-left: 0;">
 					<span>
 					<a href="javascript:;">
-						Title(EN)
+						<b>Title(EN)</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuTitleAr" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:{{$width}}%;">
+				<th data-field="MenuTitleAr" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:{{$width}}%;">
 					<span>
 						<a href="javascript:;">
-							Title(AR)
+							<b>Title(AR)</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="text-align: center;width:{{$width}}%;">
+				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="background-color:#ecebeb;text-align: center;width:{{$width}}%;">
 					<span >
 						<a href="javascript:;">
-							Link
+						<b>	Link</b>
 						</a>
-					<span>						
+					<span>
 				</th>
 				<?php if($submenu==0){ ?>
-				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="text-align: center;width:{{$width}}%;">
+				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="background-color:#ecebeb;text-align: center;width:{{$width}}%;">
 					<span >
 						<a href="javascript:;">
-							Submenu
+						<b>	Submenu</b>
 						</a>
-					<span>						
+					<span>
 				</th>
 				<?php } ?>
-				<th  style="text-align: center;width:{{$width}}%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span>Actions</span></th>
+				<th  style="background-color:#ecebeb;text-align: center;width:{{$width}}%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span>	<a href="javascript:;">
+          <b>Actions</a></span></th>
 				</tr>
                </thead>
                <tbody class="kt-datatable__body tbody_sortable" style="">
@@ -114,9 +120,9 @@
 						 <td style="text-align: center;width:{{$width}}%;">
 							<span>
 							   <!-- <div class="kt-user-card-v2"> -->
-							   <a href="{{url('menu/menu-details', $menu->id)}}"> 		
+							   <a href="{{url('menu/menu-details', $menu->id)}}">
 								  <span>{{ucfirst($menu->title_en)}}</span>
-							   </a>	  
+							   </a>
 							   <!-- </div> -->
 							</span>
 						 </td>
@@ -124,9 +130,9 @@
 						 <td style="text-align: center;width:{{$width}}%;">
 							<span>
 							   <!-- <div class="kt-user-card-v2"> -->
-							   <a href="{{url('menu/menu-details', $menu->id)}}"> 		
+							   <a href="{{url('menu/menu-details', $menu->id)}}">
 								  <span>{{ucfirst($menu->title_ar)}}</span>
-							   </a>	  
+							   </a>
 							   <!-- </div> -->
 							</span>
 						 </td>
@@ -154,9 +160,9 @@
 						 <td style="text-align: center;width:{{$width}}%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell">
 							<span style="overflow: visible; position: relative; ">
 							   <div class="dropdown">
-								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>								
+								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>
 								  <div class="dropdown-menu dropdown-menu-right">
-									 <ul class="kt-nav">						   
+									 <ul class="kt-nav">
 										<li class="kt-nav__item">
 										<?php if($submenu==1){ ?>
 											<a class="kt-nav__link" href="<?php echo url('admin/mainmenu/list/'.$parentId.'/submenu/'.$menu->id); ?>">
@@ -167,7 +173,7 @@
 
 
 											<li onclick="deleteThis(this, {{$menu->id}})" class="kt-nav__item delete_user">
-																			 
+
 										 <a class="kt-nav__link delete_user" href="javascript:void(0);"><i class="kt-nav__link-icon flaticon2-trash"></i><span class="kt-nav__link-text delete_user">Delete</span>
 									 </ul>
 								  </div>
@@ -237,43 +243,71 @@
 													<div></div>
 													<select <?php if($submenu==1){ echo 'disabled'; } ?> class="custom-select form-control" name="parent_id">
 														<option value="0">As A Parent</option>
-														<?php 
+														<?php
 															if(!empty($parent)){
 																foreach($parent as $v){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->parent_id) && $editmenu->parent_id==$v->id){ echo "selected"; }?> value="<?php echo $v->id; ?>"><?php echo $v->title_en; ?></option>
 														<?php
 																}
 															}
 														?>
 													</select>
+
 												</div>
-												
+
 										<input type="hidden" name="parent_id" value="<?php if(!empty($parentId)){ echo $parentId; }?>" >
 												<div class="form-group">
 													<label>Title(EN)</label>
 													<input type="text" required name="title_en" value="<?php if(!empty($editmenu->title_en)){ echo $editmenu->title_en; }?>" class="form-control" aria-describedby="emailHelp" placeholder="Enter title in english">
-												</div>
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('title_en') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
+                      	</div>
 												<div class="form-group">
 													<label>Title(AR)</label>
 													<input type="text" required name="title_ar" value="<?php if(!empty($editmenu->title_ar)){ echo $editmenu->title_ar; }?>" class="form-control" aria-describedby="emailHelp" placeholder="Enter title in arabic">
-												</div>
-												
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('title_ar') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
+                      	</div>
+
 												<div class="form-group" >
 													<label>Sequence</label>
 													<div></div>
 													<select class="custom-select form-control" name="order">
 														<option value="" >Select</option>
-														<?php 
+														<?php
 															if(!empty($order)){
 																for($i=1;$i<=$order;$i++){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->order) && $editmenu->order==$i){ echo "selected"; }?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
 														<?php
 																}
 															}
 														?>
 													</select>
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('order') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
 												</div>
 												<div class="form-group">
 													<label>Type</label>
@@ -297,10 +331,10 @@
 													<div></div>
 													<select class="custom-select form-control" name="page_id">
 														<option value="">Open to select page</option>
-														<?php 
+														<?php
 															if(!empty($page)){
 																foreach($page as $v){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->page_id) && $editmenu->page_id==$v->id){ echo "selected"; }?> value="<?php echo $v->id; ?>"><?php echo $v->name_en; ?></option>
 														<?php
 																}
@@ -308,7 +342,22 @@
 														?>
 													</select>
 												</div>
-												
+
+                        <div class="form-group">
+                          <label>Status</label>
+                          <div class="kt-radio-inline">
+                            <label class="kt-radio">
+                              <input type="radio" value="1" name="is_active" <?php if(empty($editmenu->id)){ echo "checked"; }?> <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="1"){ echo "checked"; }?>>Active
+                              <span></span>
+                            </label>
+                            <label class="kt-radio">
+                              <input type="radio" value="2" name="is_active" <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="2"){ echo "checked"; }?>> Inactive
+                              <span></span>
+                            </label>
+                          </div>
+                        </div>
+
+
 											</div>
 											<div class="kt-portlet__foot">
 												<div class="kt-form__actions">
@@ -352,7 +401,7 @@
 					success: function(result) {
 						$('.pageloader').hide();
 						var newResult = JSON.parse(result);
-						
+
 						swal.fire({
 							title: 'Deleted!',
 							text: newResult.message,
@@ -367,19 +416,19 @@
 			}
 		});
 	}
-	
+
 
 
 	setTimeout(function() {
        $('.successMessage').fadeOut('slow');
-    }, 2000); 
+    }, 2000);
 
 	function checkAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').addClass('kt-hidden');
 		$('#kt_subheader_group_actions').removeClass('kt-hidden');
 	}
-	
+
 	function unCheckAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').removeClass('kt-hidden');
@@ -390,20 +439,20 @@
 		if (input.files && input.files[0]) {
 			var filename = input.files[0].name;
 			var reader = new FileReader();
-			
+
 			reader.onload = function(e) {
 			$('#iconPreview').attr('src', e.target.result);
 			}
-			
+
 			reader.readAsDataURL(input.files[0]);
 			$('#iconPreview').show();
 			setTimeout(function(){
 				$('.LabeliconFile').text(filename.substring(filename.length - 30, filename.length));
 			},1);
-			
+
 		}
 	}
-	
+
 	$(document).ready(function() {
 		$("#iconFile").change(function() {
 			readURL(this);
@@ -430,15 +479,15 @@
 				$('.childBox').prop('checked', false);
 				unCheckAll();
 			}
-			
+
 		});
-		
+
 		$(document).on('change', '.childBox', function(){
 			var checkthis 	= $(this);
 
 			if (checkthis.is(':checked')) {
 				checkAll();
-				
+
 				if ($('input[name="chkID[]"]').filter(':checked').length == $('input[name="chkID[]"]').length) {
 					$('.parentChk').prop('checked', true);
 				}
@@ -450,12 +499,12 @@
 				}
 			}
 		});
-		
+
 		// delete all pages from this section
 		$('#kt_subheader_group_actions_delete_all').on('click', function() {
 			// fetch selected IDs
 			var ids = [];
-			
+
 			$('input[name="chkID[]"]').filter(':checked').map(function(i, chk) {
 				ids.push($(chk).val());
 			});
@@ -484,7 +533,7 @@
 							success: function(result) {
 								$('.pageloader').hide();
 								var newResult = JSON.parse(result);
-								
+
 								swal.fire({
 									title: 'Deleted!',
 									text: newResult.message,
@@ -492,26 +541,26 @@
 								})
 								setTimeout(function() {
 								   window.location.reload();
-								}, 1500); 
+								}, 1500);
 							}
 						});
 					}
 				});
 			}
 		});
-		
+
 	});
 
-	
+
 	function getDropdownval(obj) {
-		
+
 			var $url = $(location). attr("href");
 			if($url.indexOf("key") != -1 || $url.indexOf("page") != -1) { // if url is working with keys
 
-				if($url.indexOf("recordvalue") != -1) {				
+				if($url.indexOf("recordvalue") != -1) {
 
 					$url = updateQueryStringParameter($url, 'recordvalue', obj.value);
-				}	
+				}
 
 				if($url.indexOf("recordvalue") == -1) { // if record value is not available in url
 					$url = $url + '&recordvalue=' + obj.value;
@@ -521,7 +570,7 @@
 
 				if($url.indexOf("recordvalue") != -1) {
 					$url = updateQueryStringParameter($url, 'recordvalue', obj.value);
-				}	
+				}
 
 				if($url.indexOf("recordvalue") == -1) { // if record value is not available in url
 					$url = $url + '?recordvalue=' + obj.value;
@@ -541,7 +590,7 @@
 			else {
 			return uri + separator + key + "=" + value;
 			}
-	}		
+	}
 
 	$(document).ready(function(){
 		$( ".tbody_sortable" ).sortable({
@@ -555,7 +604,7 @@
 				updateOrder(selectedData);
 			}
 		});
-	})	
+	})
 
 	function updateOrder(selectedData) {
 		$('.pageloader').show();
@@ -566,7 +615,7 @@
 			success: function(result) {
 				$('.pageloader').hide();
 				var newResult = JSON.parse(result);
-				
+
 				swal.fire({
 					title: 'Sucess!',
 					text: newResult.message,
@@ -574,7 +623,7 @@
 				})
 				// setTimeout(function() {
 				// 	window.location.reload();
-				// }, 1500); 
+				// }, 1500);
 			}
 		});
 	}
@@ -588,7 +637,7 @@
 			success: function(result) {
 				$('.pageloader').hide();
 				var newResult = JSON.parse(result);
-				
+
 			}
 		});
 	}

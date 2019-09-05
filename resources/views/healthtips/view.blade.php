@@ -13,7 +13,7 @@
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
 				{{$pages->total()}} Total</span>
-                <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/health/listing')}}" method="GET" role="search">
+                <!-- <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/health/listing')}}" method="GET" role="search">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
 						<input type="text" class="form-control" placeholder="Search..." id="generalSearch" name="q" value="{{session()->get( 'q' )}}">
 						<span class="kt-input-icon__icon kt-input-icon__icon--right">
@@ -26,11 +26,10 @@
 									</g>
 								</svg>
 
-								<!--<i class="flaticon2-search-1"></i>-->
 							</span>
 						</span>
 					</div>
-                </form>
+                </form> -->
             </div>
             <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
                 <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>

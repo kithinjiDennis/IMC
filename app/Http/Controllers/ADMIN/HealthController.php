@@ -36,8 +36,6 @@ class HealthController extends Controller implements PageInterface
     public function create()
     {
       $templates = HealthTip::get();
-
-
       return view('healthtips.create', compact('templates'));
 
     }
@@ -47,14 +45,22 @@ class HealthController extends Controller implements PageInterface
     {
 
       $helper = new Helpers();
+      $input = $request->all();
+      $request['title_en'] = trim($request['title_en']);
+      $request['title_ar'] = trim($request['title_ar']);
+      $request['subtitle_en'] = trim($request['subtitle_en']);
+      $request['subtitle_ar'] = trim($request['subtitle_ar']);
+      $request['description_en'] = trim($request['description_en']);
+      $request['description_ar'] = trim($request['description_ar']);
+
         $this->validate($request,[
-            'title_en' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'title_ar' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'subtitle_en' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'subtitle_ar' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
+            'title_en' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'title_ar' =>'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'subtitle_en' =>'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'subtitle_ar' =>'required|regex:/^[\pL\s\-]+$/u|max:255',
             'description_en' => 'required|max:500',
             'description_ar' => 'required|max:500',
-            'icon' => 'mimes:jpeg,jpg,png,gif|required|max:10000' //
+            'icon' => 'mimes:jpeg,jpg,png,gif|max:10000' //
         ],[
             'title_en.required' => 'Please enter title',
             'title_ar.required' => 'Please enter title',

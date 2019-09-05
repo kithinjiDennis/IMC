@@ -3,7 +3,15 @@
 @section('title', 'Top Menu')
 
 @section('content')
+<style>
 
+.invalid-feed {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #fd397a; }
+
+</style>
 <div class="kt-subheader   kt-grid__item" id="kt_subheader">
         <div class="kt-subheader__main">
             <h3 class="kt-subheader__title">
@@ -13,7 +21,7 @@
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
 				{{$menus->total()}} Total</span>
-                <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/topmenu/list')}}" method="GET" role="search">
+                <!-- <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/topmenu/list')}}" method="GET" role="search">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
 						<input type="text" class="form-control" placeholder="Search..." id="generalSearch" name="q" value="{{session()->get( 'q' )}}">
 						<span class="kt-input-icon__icon kt-input-icon__icon--right">
@@ -26,16 +34,15 @@
 									</g>
 								</svg>
 
-								<!--<i class="flaticon2-search-1"></i>-->
 							</span>
 						</span>
 					</div>
-                </form>
+                </form> -->
             </div>
             <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
                 <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>
                 <div class="btn-toolbar kt-margin-l-20">
-                                       
+
                     <button class="btn btn-label-danger btn-bold btn-sm btn-icon-h" id="kt_subheader_group_actions_delete_all">
                         Delete All
                     </button>
@@ -47,7 +54,7 @@
 			</a>
 			<?php if(!empty($editmenu->id)){ ?>
             <a href="{{ url('admin/topmenu/list') }}" class="btn btn-label-brand btn-bold">
-				Add Menu </a>          
+				Add Menu </a>
 				<?php  }?>
         </div>
     </div>
@@ -65,36 +72,36 @@
             <table class="kt-datatable__table" style="display: block;">
                <thead class="kt-datatable__head">
 			   <tr class="kt-datatable__row" style="left: 0px;">
-				
-			   <th data-field="MenuIcon" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:20%;padding-left: 0;">
+
+			   <th data-field="MenuIcon" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:20%;padding-left: 0;">
 					<span>
 					<a href="javascript:;">
-						Icon
+						<b>Icon<b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuTitleEn" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:20%;">
+				<th data-field="MenuTitleEn" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:20%;">
 					<span>
 					<a href="javascript:;">
-						Title(EN)
+						<b>Title(EN)</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuTitleAr" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:20%;">
+				<th data-field="MenuTitleAr" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:20%;">
 					<span>
 						<a href="javascript:;">
-							Title(AR)
+							<b>Title(AR)</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="text-align: center;width:20%;">
+				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="background-color:#ecebeb;text-align: center;width:20%;">
 					<span >
 						<a href="javascript:;">
-							Link
+							<b>Link</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th  style="text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span>Actions</span></th>
+				<th  style="background-color:#ecebeb;text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span><a href="javascript:;"><b>Actions</b><a></span></th>
 				</tr>
                </thead>
                <tbody class="kt-datatable__body tbody_sortable" style="">
@@ -110,13 +117,13 @@
 							   <!-- </div> -->
 							</span>
 						 </td>
-						 
+
 						 <td style="text-align: center;width:20%;">
 							<span>
 							   <!-- <div class="kt-user-card-v2"> -->
-							   <a href="{{url('menu/menu-details', $menu->id)}}"> 		
+							   <a href="{{url('menu/menu-details', $menu->id)}}">
 								  <span>{{ucfirst($menu->title_en)}}</span>
-							   </a>	  
+							   </a>
 							   <!-- </div> -->
 							</span>
 						 </td>
@@ -124,9 +131,9 @@
 						 <td style="text-align: center;width:20%;">
 							<span>
 							   <!-- <div class="kt-user-card-v2"> -->
-							   <a href="{{url('menu/menu-details', $menu->id)}}"> 		
+							   <a href="{{url('menu/menu-details', $menu->id)}}">
 								  <span>{{ucfirst($menu->title_ar)}}</span>
-							   </a>	  
+							   </a>
 							   <!-- </div> -->
 							</span>
 						 </td>
@@ -142,13 +149,13 @@
 							?>
 							</span>
 						 </td>
-						 
+
 						 <td style="text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell">
 							<span style="overflow: visible; position: relative; ">
 							   <div class="dropdown">
-								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>								
+								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>
 								  <div class="dropdown-menu dropdown-menu-right">
-									 <ul class="kt-nav">						   
+									 <ul class="kt-nav">
 										<li class="kt-nav__item"><a class="kt-nav__link" href="{{url('admin/topmenu/list', $menu->id)}}"><i class="kt-nav__link-icon flaticon2-contract"></i><span class="kt-nav__link-text">Edit</span></a></li>
 									 	<li onclick="deleteThis(this, {{$menu->id}})" class="kt-nav__item delete_user"><a class="kt-nav__link delete_user" href="javascript:void(0);"><i class="kt-nav__link-icon flaticon2-trash"></i><span class="kt-nav__link-text delete_user">Delete</span>
 									 </ul>
@@ -209,19 +216,37 @@
 										</div>
 
 										<!--begin::Form-->
-										<form class="kt-form" method="POST" enctype="multipart/form-data" action="{{ url('admin/topmenu/create') }}" >
+										<form class="kt-form" method="POST" action="{{ url('/admin/topmenu/create') }}" >
 										@csrf
-
 										<input type="hidden" name="id" value="<?php if(!empty($editmenu->id)){ echo $editmenu->id; }?>" >
 											<div class="kt-portlet__body">
 												<div class="form-group">
 													<label>Title(EN)</label>
 													<input type="text" required name="title_en" value="<?php if(!empty($editmenu->title_en)){ echo $editmenu->title_en; }?>" class="form-control" aria-describedby="emailHelp" placeholder="Enter title in english">
-												</div>
+
+                            <?php
+                            if(isset($errors)){
+                              ?>
+                              <span class="invalid-feed" role="alert">
+                                <strong>{{ $errors->getBag('default')->first('title_en') }}</strong>
+                              </span>
+                            <?php
+                            }
+                             ?>
+                        </div>
 												<div class="form-group">
 													<label>Title(AR)</label>
 													<input type="text" required name="title_ar" value="<?php if(!empty($editmenu->title_ar)){ echo $editmenu->title_ar; }?>" class="form-control" aria-describedby="emailHelp" placeholder="Enter title in arabic">
-												</div>
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('title_ar') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
+                        </div>
 												<div class="form-group">
 													<label>Icon</label>
 													<div></div>
@@ -242,10 +267,10 @@
 													<div></div>
 													<select class="custom-select form-control" name="order">
 														<option value="" >Select</option>
-														<?php 
+														<?php
 															if(!empty($order)){
 																for($i=1;$i<=$order;$i++){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->order) && $editmenu->order==$i){ echo "selected"; }?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
 														<?php
 																}
@@ -275,10 +300,10 @@
 													<div></div>
 													<select class="custom-select form-control" name="page_id">
 														<option value="">Open to select page</option>
-														<?php 
+														<?php
 															if(!empty($page)){
 																foreach($page as $v){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->page_id) && $editmenu->page_id==$v->id){ echo "selected"; }?> value="<?php echo $v->id; ?>"><?php echo $v->name_en; ?></option>
 														<?php
 																}
@@ -286,7 +311,21 @@
 														?>
 													</select>
 												</div>
-												
+                        <div class="form-group">
+                          <label>Status</label>
+                          <div class="kt-radio-inline">
+                            <label class="kt-radio">
+                              <input type="radio" value="1" name="is_active" <?php if(empty($editmenu->id)){ echo "checked"; }?> <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="1"){ echo "checked"; }?>>Active
+                              <span></span>
+                            </label>
+                            <label class="kt-radio">
+                              <input type="radio" value="2" name="is_active" <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="2"){ echo "checked"; }?>> Inactive
+                              <span></span>
+                            </label>
+                          </div>
+                        </div>
+
+
 											</div>
 											<div class="kt-portlet__foot">
 												<div class="kt-form__actions">
@@ -305,7 +344,7 @@
 @section('script')
 
 <script>
-	
+
 	function deleteThis(obj, id)
 	{
 		swal.fire({
@@ -330,7 +369,7 @@
 					success: function(result) {
 						$('.pageloader').hide();
 						var newResult = JSON.parse(result);
-						
+
 						swal.fire({
 							title: 'Deleted!',
 							text: newResult.message,
@@ -345,19 +384,19 @@
 			}
 		});
 	}
-	
+
 
 
 	setTimeout(function() {
        $('.successMessage').fadeOut('slow');
-    }, 2000); 
+    }, 2000);
 
 	function checkAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').addClass('kt-hidden');
 		$('#kt_subheader_group_actions').removeClass('kt-hidden');
 	}
-	
+
 	function unCheckAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').removeClass('kt-hidden');
@@ -368,20 +407,20 @@
 		if (input.files && input.files[0]) {
 			var filename = input.files[0].name;
 			var reader = new FileReader();
-			
+
 			reader.onload = function(e) {
 			$('#iconPreview').attr('src', e.target.result);
 			}
-			
+
 			reader.readAsDataURL(input.files[0]);
 			$('#iconPreview').show();
 			setTimeout(function(){
 				$('.LabeliconFile').text(filename.substring(filename.length - 30, filename.length));
 			},1);
-			
+
 		}
 	}
-	
+
 	$(document).ready(function() {
 		$("#iconFile").change(function() {
 			readURL(this);
@@ -408,15 +447,15 @@
 				$('.childBox').prop('checked', false);
 				unCheckAll();
 			}
-			
+
 		});
-		
+
 		$(document).on('change', '.childBox', function(){
 			var checkthis 	= $(this);
 
 			if (checkthis.is(':checked')) {
 				checkAll();
-				
+
 				if ($('input[name="chkID[]"]').filter(':checked').length == $('input[name="chkID[]"]').length) {
 					$('.parentChk').prop('checked', true);
 				}
@@ -428,12 +467,12 @@
 				}
 			}
 		});
-		
+
 		// delete all pages from this section
 		$('#kt_subheader_group_actions_delete_all').on('click', function() {
 			// fetch selected IDs
 			var ids = [];
-			
+
 			$('input[name="chkID[]"]').filter(':checked').map(function(i, chk) {
 				ids.push($(chk).val());
 			});
@@ -462,7 +501,7 @@
 							success: function(result) {
 								$('.pageloader').hide();
 								var newResult = JSON.parse(result);
-								
+
 								swal.fire({
 									title: 'Deleted!',
 									text: newResult.message,
@@ -470,26 +509,26 @@
 								})
 								setTimeout(function() {
 								   window.location.reload();
-								}, 1500); 
+								}, 1500);
 							}
 						});
 					}
 				});
 			}
 		});
-		
+
 	});
 
-	
+
 	function getDropdownval(obj) {
-		
+
 			var $url = $(location). attr("href");
 			if($url.indexOf("key") != -1 || $url.indexOf("page") != -1) { // if url is working with keys
 
-				if($url.indexOf("recordvalue") != -1) {				
+				if($url.indexOf("recordvalue") != -1) {
 
 					$url = updateQueryStringParameter($url, 'recordvalue', obj.value);
-				}	
+				}
 
 				if($url.indexOf("recordvalue") == -1) { // if record value is not available in url
 					$url = $url + '&recordvalue=' + obj.value;
@@ -499,7 +538,7 @@
 
 				if($url.indexOf("recordvalue") != -1) {
 					$url = updateQueryStringParameter($url, 'recordvalue', obj.value);
-				}	
+				}
 
 				if($url.indexOf("recordvalue") == -1) { // if record value is not available in url
 					$url = $url + '?recordvalue=' + obj.value;
@@ -519,7 +558,7 @@
 			else {
 			return uri + separator + key + "=" + value;
 			}
-	}		
+	}
 
 	$(document).ready(function(){
 		$( ".tbody_sortable" ).sortable({
@@ -533,7 +572,7 @@
 				updateOrder(selectedData);
 			}
 		});
-	})	
+	})
 
 	function updateOrder(selectedData) {
 		$('.pageloader').show();
@@ -544,7 +583,7 @@
 			success: function(result) {
 				$('.pageloader').hide();
 				var newResult = JSON.parse(result);
-				
+
 				swal.fire({
 					title: 'Sucess!',
 					text: newResult.message,
@@ -552,7 +591,7 @@
 				})
 				// setTimeout(function() {
 				// 	window.location.reload();
-				// }, 1500); 
+				// }, 1500);
 			}
 		});
 	}
@@ -566,7 +605,7 @@
 			success: function(result) {
 				$('.pageloader').hide();
 				var newResult = JSON.parse(result);
-				
+
 			}
 		});
 	}

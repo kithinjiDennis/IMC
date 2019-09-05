@@ -5,7 +5,7 @@
 	<div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
 		<div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
 			<ul class="kt-menu__nav ">
-				
+
 			</ul>
 		</div>
 	</div>
@@ -17,16 +17,16 @@
 
 		<!--begin: Notifications -->
 		<div class="kt-header__topbar-item dropdown">
-			
+
 			<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg">
-				
+
 			</div>
 		</div>
 
 		<!--end: Notifications -->
 
 		<!--begin: Quick Actions -->
-		
+
 		<!--end: Quick Actions -->
 
 		<!--begin: My Cart -->

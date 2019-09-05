@@ -48,12 +48,19 @@ class NewsController extends Controller implements PageInterface
     {
 
       $helper = new Helpers();
+      $input = $request->all();
+      $request['title_en'] = trim($request['title_en']);
+      $request['title_ar'] = trim($request['title_ar']);
+      $request['description_en'] = trim($request['description_en']);
+      $request['description_ar'] = trim($request['description_ar']);
+
+
         $this->validate($request,[
-            'title_en' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
-            'title_ar' => 'required|regex:/^[a-zA-Z]+$/u|max:50',
+            'title_en' => 'required|regex:/^[\pL\s\-]+$/u|min:3|max:255',
+            'title_ar' =>'required|regex:/^[\pL\s\-]+$/u|min:3|max:255',
             'description_en' => 'required|max:500',
             'description_ar' => 'required|max:500',
-            'icon' => 'required|mimes:jpeg,jpg,png,gif|max:10000' //
+            'icon' => 'mimes:jpeg,jpg,png,gif|max:10000' //
         ],[
             'title_en.required' => 'Please enter title',
             'title_ar.required' => 'Please enter title',
@@ -217,5 +224,97 @@ class NewsController extends Controller implements PageInterface
         }
         return json_encode(array('status' => $returnStatus, 'message' => $message));
     }
+
+
+// update the news heading
+
+public function heading_list(Request $request)
+{
+
+    $per_page = (isset($request->recordvalue) ? $request->recordvalue : Config::get('variable.page_per_record'));
+    session(['sort_by' => 'asc']);
+
+    $menus = News::select('id','heading_en','heading_ar');
+    $menus = $menus->orderBy('id','ASC');
+    $menus = $menus->paginate($per_page);
+    $helper = new Helpers();
+           // append recordvalue params
+     if(isset($request->recordvalue)) {
+        $menus = $menus->appends(['recordvalue' => $request->recordvalue]);
+        session(['recordvalue' => $request->recordvalue]);
+    } else {
+        session()->forget('recordvalue');
+    }
+    $editmenu = News::first();
+    if(!empty($editmenu)) {
+        $editmenu = News::first();
+         $pageid=[];
+    }else{
+        $editmenu = [];
+        $pageid=[];
+    }
+      $allpages=Page::get();
+     return view('news.headinglist', compact('menus','editmenu','allpages','pageid'));
+
+}
+
+// save and update menu and its details from this function
+public function heading_create(Request $request)
+{
+    $helper = new Helpers();
+
+    $input = $request->all();
+    $request['heading_en'] = trim($request['heading_en']);
+    $request['heading_ar'] = trim($request['heading_ar']);
+
+    $this->validate($request,[
+        'heading_en' => 'required|max:500',
+        'heading_ar' => 'required|max:500',
+    ],[
+       'heading_en.required' => 'Please enter the News headline',
+       'heading_ar.required' => 'Please enter the News headline  in arabic',
+
+   ]);
+
+
+    $array = [
+        'heading_en' => $request->get('heading_en'),
+        'heading_ar' => $request->get('heading_ar'),
+        'created_at' => date('Y-m-d H:i:s',time()),
+        'updated_at' => date('Y-m-d H:i:s',time())
+    ];
+    if(!empty($request->id)) {
+          $result = News::where('id',$request->id)->update($array);
+          if($result) {
+              Session::flash('message', 'News updated successfully');
+              Session::flash('alert-class', 'alert-success');
+          } else {
+              Session::flash('message', 'Unable to update news!');
+              Session::flash('alert-class', 'alert-danger');
+          }
+      }else{
+            $array = [
+                'title_en' => $request->get('heading_en'),
+                'title_ar' => $request->get('heading_ar'),
+                'heading_en' => $request->get('heading_en'),
+                'heading_ar' => $request->get('heading_ar'),
+                'description_en' => $request->get('heading_ar'),
+                'description_ar' => $request->get('heading_ar'),
+                'created_at' => date('Y-m-d H:i:s',time()),
+                'updated_at' => date('Y-m-d H:i:s',time())
+            ];
+        $result = News::InsertGetId($array);
+        if($result) {
+            Session::flash('message', 'News updated successfully');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Unable to update news!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+      }
+        return redirect('heading/list');
+
+}
+
 
 }

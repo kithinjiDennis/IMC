@@ -17,6 +17,12 @@ a.socialmiddlemenuicons {
     align-items: center;
     justify-content: center;
 }
+.invalid-feed {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #fd397a; }
+
 </style>
 <div class="kt-subheader   kt-grid__item" id="kt_subheader">
         <div class="kt-subheader__main">
@@ -27,10 +33,9 @@ a.socialmiddlemenuicons {
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
 				{{$menus->total()}} Total</span>
-                <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/middlemenu/list')}}" method="GET" role="search">
+                <!-- <form class="kt-margin-l-20" id="kt_subheader_search_form" action="{{url('/admin/middlemenu/list')}}" method="GET" role="search">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
-						<!-- <input type="text" class="form-control" placeholder="Search..." id="generalSearch" name="q" value="{{session()->get( 'q' )}}"> -->
-						<!-- <span class="kt-input-icon__icon kt-input-icon__icon--right"> -->
+
 							<span>
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -40,16 +45,15 @@ a.socialmiddlemenuicons {
 									</g>
 								</svg>
 
-								<!--<i class="flaticon2-search-1"></i>-->
 							</span>
 						</span>
 					</div>
-                </form>
+                </form> -->
             </div>
             <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
                 <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>
                 <div class="btn-toolbar kt-margin-l-20">
-                                       
+
                     <button class="btn btn-label-danger btn-bold btn-sm btn-icon-h" id="kt_subheader_group_actions_delete_all">
                         Delete All
                     </button>
@@ -61,7 +65,7 @@ a.socialmiddlemenuicons {
 			</a>
 			<?php if(!empty($editmenu->id)){ ?>
             <a href="{{ url('admin/middlemenu/list') }}" class="btn btn-label-brand btn-bold">
-				Add Menu </a>          
+				Add Menu </a>
 				<?php  }?>
         </div>
     </div>
@@ -79,22 +83,22 @@ a.socialmiddlemenuicons {
             <table class="kt-datatable__table" style="display: block;">
                <thead class="kt-datatable__head">
 			   <tr class="kt-datatable__row" style="left: 0px;">
-				
-			   <th data-field="MenuIcon" class="kt-datatable__cell kt-datatable__cell--sort " style="text-align: center;width:20%;padding-left: 0;">
+
+			   <th data-field="MenuIcon" class="kt-datatable__cell kt-datatable__cell--sort " style="background-color:#ecebeb;text-align: center;width:20%;padding-left: 0;">
 					<span>
 					<a href="javascript:;">
-						Icon
+						<b>Icon</b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="text-align: center;width:20%;">
+				<th data-field="MenuLink" class="kt-datatable__cell kt-datatable__cell--sort "  style="background-color:#ecebeb;text-align: center;width:20%;">
 					<span>
 						<a href="javascript:;">
-							Link
+							<b>Link<b>
 						</a>
-					<span>						
+					<span>
 				</th>
-				<th  style="text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span>Actions</span></th>
+				<th  style="background-color:#ecebeb;text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell kt-datatable__cell--sort"><span><a href="javascript:;"><b>Actions</b></a></span></th>
 				</tr>
                </thead>
                <tbody class="kt-datatable__body tbody_sortable" style="">
@@ -122,7 +126,7 @@ a.socialmiddlemenuicons {
 								  </span>
 							</span>
 						 </td>
-						 
+
 						 <td style="text-align: center;width:20%;">
 							<span>
 							<?php
@@ -130,13 +134,13 @@ a.socialmiddlemenuicons {
 							?>
 							</span>
 						 </td>
-						 
+
 						 <td style="text-align: center;width:20%;" data-field="Actions" data-autohide-disabled="false" class="kt-datatable__cell">
 							<span style="overflow: visible; position: relative; ">
 							   <div class="dropdown">
-								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>								
+								  <a data-toggle="dropdown" class="btn btn-sm btn-clean btn-icon btn-icon-md"><i class="flaticon-more-1"></i></a>
 								  <div class="dropdown-menu dropdown-menu-right">
-									 <ul class="kt-nav">						   
+									 <ul class="kt-nav">
 										<li class="kt-nav__item"><a class="kt-nav__link" href="{{url('admin/middlemenu/list', $menu->id)}}"><i class="kt-nav__link-icon flaticon2-contract"></i><span class="kt-nav__link-text">Edit</span></a></li>
 									 	<li onclick="deleteThis(this, {{$menu->id}})" class="kt-nav__item delete_user"><a class="kt-nav__link delete_user" href="javascript:void(0);"><i class="kt-nav__link-icon flaticon2-trash"></i><span class="kt-nav__link-text delete_user">Delete</span>
 									 </ul>
@@ -201,7 +205,7 @@ a.socialmiddlemenuicons {
 										@csrf
 
 										<input type="hidden" name="id" value="<?php if(!empty($editmenu->id)){ echo $editmenu->id; }?>" >
-											<div class="kt-portlet__body">	
+											<div class="kt-portlet__body">
 												<div class="form-group"  >
 													<label>Type</label>
 													<div></div>
@@ -213,9 +217,18 @@ a.socialmiddlemenuicons {
 														<option <?php if(!empty($editmenu->type) && $editmenu->type=="linkedin"){ echo "selected"; } ?> value="linkedin">Linkedin</option>
 														<option <?php if(!empty($editmenu->type) && $editmenu->type=="youtube"){ echo "selected"; } ?> value="youtube">Youtube</option>
 														<option <?php if(!empty($editmenu->type) && $editmenu->type=="custom"){ echo "selected"; } ?> value="custom">Custom</option>
-													
+
 													</select>
-												</div>											
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('type') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
+												</div>
 												<div class="form-group selectcustomicon" <?php if(empty($editmenu->id) || (!empty($editmenu->type) && $editmenu->type=="1")){ echo "style='display:none;'"; }elseif(!empty($editmenu->type) && $editmenu->type=="custom"){ echo "style='display:block;'"; }?>>
 													<label>Icon</label>
 													<div></div>
@@ -236,21 +249,46 @@ a.socialmiddlemenuicons {
 													<div></div>
 													<select class="custom-select form-control" name="order">
 														<option value="" >Select</option>
-														<?php 
+														<?php
 															if(!empty($order)){
 																for($i=1;$i<=$order;$i++){
-																	?>																	
+																	?>
 															<option <?php if(!empty($editmenu->order) && $editmenu->order==$i){ echo "selected"; }?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
 														<?php
 																}
 															}
 														?>
 													</select>
+                          <?php
+                          if(isset($errors)){
+                            ?>
+                            <span class="invalid-feed" role="alert">
+                              <strong>{{ $errors->getBag('default')->first('order') }}</strong>
+                            </span>
+                          <?php
+                          }
+                           ?>
 												</div>
 												<div class="form-group customlink">
 													<label>Custom Link</label>
 													<input type="text" name="link" value="<?php if(!empty($editmenu->link)){ echo $editmenu->link; }?>" class="form-control" aria-describedby="emailHelp" placeholder="Enter link">
-												</div>												
+												</div>
+
+                        <div class="form-group">
+                          <label>Status</label>
+                          <div class="kt-radio-inline">
+                            <label class="kt-radio">
+                              <input type="radio" value="1" name="is_active" <?php if(empty($editmenu->id)){ echo "checked"; }?> <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="1"){ echo "checked"; }?>>Active
+                              <span></span>
+                            </label>
+                            <label class="kt-radio">
+                              <input type="radio" value="2" name="is_active" <?php if(!empty($editmenu->is_active) && $editmenu->is_active=="2"){ echo "checked"; }?>> Inactive
+                              <span></span>
+                            </label>
+                          </div>
+                        </div>
+
+
 											</div>
 											<div class="kt-portlet__foot">
 												<div class="kt-form__actions">
@@ -269,7 +307,7 @@ a.socialmiddlemenuicons {
 @section('script')
 
 <script>
-	
+
 	function deleteThis(obj, id)
 	{
 		swal.fire({
@@ -294,7 +332,7 @@ a.socialmiddlemenuicons {
 					success: function(result) {
 						$('.pageloader').hide();
 						var newResult = JSON.parse(result);
-						
+
 						swal.fire({
 							title: 'Deleted!',
 							text: newResult.message,
@@ -309,19 +347,19 @@ a.socialmiddlemenuicons {
 			}
 		});
 	}
-	
+
 
 
 	setTimeout(function() {
        $('.successMessage').fadeOut('slow');
-    }, 2000); 
+    }, 2000);
 
 	function checkAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').addClass('kt-hidden');
 		$('#kt_subheader_group_actions').removeClass('kt-hidden');
 	}
-	
+
 	function unCheckAll() {
 		$('#kt_subheader_group_selected_rows').html($('input[name="chkID[]"]').filter(':checked').length);
 		$('#kt_subheader_search').removeClass('kt-hidden');
@@ -332,25 +370,25 @@ a.socialmiddlemenuicons {
 		if (input.files && input.files[0]) {
 			var filename = input.files[0].name;
 			var reader = new FileReader();
-			
+
 			reader.onload = function(e) {
 			$('#iconPreview').attr('src', e.target.result);
 			}
-			
+
 			reader.readAsDataURL(input.files[0]);
 			$('#iconPreview').show();
 			setTimeout(function(){
 				$('.LabeliconFile').text(filename.substring(filename.length - 30, filename.length));
 			},1);
-			
+
 		}
 	}
-	
+
 	$(document).ready(function() {
 		$("#iconFile").change(function() {
 			readURL(this);
 		});
-		
+
 		$('select[name=type]').change(function() {
 			if (this.value == 'custom') {
 				$('.selectcustomicon').show();
@@ -360,7 +398,7 @@ a.socialmiddlemenuicons {
 			}
 		});
 
-		
+
 	});
 
 	function updateQueryStringParameter(uri, key, value) {
@@ -372,7 +410,7 @@ a.socialmiddlemenuicons {
 			else {
 			return uri + separator + key + "=" + value;
 			}
-	}		
+	}
 
 	$(document).ready(function(){
 		$( ".tbody_sortable" ).sortable({
@@ -386,7 +424,7 @@ a.socialmiddlemenuicons {
 				updateOrder(selectedData);
 			}
 		});
-	})	
+	})
 
 	function updateOrder(selectedData) {
 		$('.pageloader').show();
@@ -397,7 +435,7 @@ a.socialmiddlemenuicons {
 			success: function(result) {
 				$('.pageloader').hide();
 				var newResult = JSON.parse(result);
-				
+
 				swal.fire({
 					title: 'Sucess!',
 					text: newResult.message,
@@ -405,7 +443,7 @@ a.socialmiddlemenuicons {
 				})
 				// setTimeout(function() {
 				// 	window.location.reload();
-				// }, 1500); 
+				// }, 1500);
 			}
 		});
 	}
